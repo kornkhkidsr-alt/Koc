@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Electricity Calculator</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body{
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background: linear-gradient(135deg,#0f172a,#1e293b,#2563eb);
+      overflow:hidden;
+    }
+
+    .glow{
+      position:absolute;
+      width:300px;
+      height:300px;
+      background:#3b82f6;
+      border-radius:50%;
+      filter:blur(120px);
+      opacity:0.4;
+    }
+
+    .glow:nth-child(1){
+      top:-100px;
+      left:-100px;
+    }
+
+    .glow:nth-child(2){
+      bottom:-100px;
+      right:-100px;
+      background:#06b6d4;
+    }
+
+    .card{
+      position:relative;
+      width:380px;
+      padding:30px;
+      border-radius:25px;
+      background:rgba(255,255,255,0.08);
+      backdrop-filter:blur(15px);
+      border:1px solid rgba(255,255,255,0.2);
+      box-shadow:0 10px 40px rgba(0,0,0,0.4);
+      color:white;
+      animation:float 3s ease-in-out infinite;
+    }
+
+    @keyframes float{
+      0%{transform:translateY(0);}
+      50%{transform:translateY(-8px);}
+      100%{transform:translateY(0);}
+    }
+
+    .title{
+      text-align:center;
+      font-size:28px;
+      font-weight:bold;
+      margin-bottom:10px;
+    }
+
+    .subtitle{
+      text-align:center;
+      color:#cbd5e1;
+      margin-bottom:25px;
+      font-size:14px;
+    }
+
+    .input-box{
+      margin-bottom:18px;
+    }
+
+    label{
+      display:block;
+      margin-bottom:8px;
+      font-weight:600;
+    }
+
+    input{
+      width:100%;
+      padding:14px;
+      border:none;
+      border-radius:14px;
+      outline:none;
+      background:rgba(255,255,255,0.15);
+      color:white;
+      font-size:16px;
+    }
+
+    input::placeholder{
+      color:#cbd5e1;
+    }
+
+    button{
+      width:100%;
+      padding:15px;
+      border:none;
+      border-radius:14px;
+      background:linear-gradient(135deg,#38bdf8,#2563eb);
+      color:white;
+      font-size:18px;
+      font-weight:bold;
+      cursor:pointer;
+      transition:0.3s;
+      margin-top:10px;
+    }
+
+    button:hover{
+      transform:scale(1.03);
+      box-shadow:0 0 20px #38bdf8;
+    }
+
+    .result{
+      margin-top:25px;
+      padding:18px;
+      border-radius:18px;
+      background:rgba(255,255,255,0.12);
+      text-align:center;
+      display:none;
+    }
+
+    .result h2{
+      margin-bottom:10px;
+      color:#facc15;
+    }
+
+    .cost{
+      font-size:32px;
+      font-weight:bold;
+      color:#4ade80;
+    }
+
+    .footer{
+      margin-top:18px;
+      text-align:center;
+      font-size:12px;
+      color:#cbd5e1;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="glow"></div>
+  <div class="glow"></div>
+
+  <div class="card">
+
+    <div class="title">⚡ Electricity Calculator</div>
+    <div class="subtitle">
+      គណនាថ្លៃអគ្គិសនី ឡូយទាន់សម័យ 😎
+    </div>
+
+    <div class="input-box">
+      <label>ចំនួន Watt (W)</label>
+      <input type="number" id="watt" placeholder="ឧ: 1000">
+    </div>
+
+    <div class="input-box">
+      <label>ចំនួនម៉ោងប្រើប្រាស់</label>
+      <input type="number" id="hour" placeholder="ឧ: 5">
+    </div>
+
+    <div class="input-box">
+      <label>តម្លៃអគ្គិសនី / kWh (៛)</label>
+      <input type="number" id="price" placeholder="ឧ: 1000">
+    </div>
+
+    <button onclick="calculateElectricity()">
+      ⚡ គណនា
+    </button>
+
+    <div class="result" id="result">
+      <h2>លទ្ធផល</h2>
+
+      <p>ការប្រើប្រាស់សរុប</p>
+      <div class="cost" id="usage"></div>
+
+      <br>
+
+      <p>តម្លៃត្រូវបង់</p>
+      <div class="cost" id="total"></div>
+    </div>
+
+    <div class="footer">
+      Made with ❤️ using HTML + CSS + JavaScript$
+    </div>
+
+  </div>
+
+  <script>
+    function calculateElectricity(){
+
+      let watt = document.getElementById("watt").value;
+      let hour = document.getElementById("hour").value;
+      let price = document.getElementById("price").value;
+
+      // គណនា kWh
+      let kwh = (watt * hour) / 1000;
+
+      // គណនាតម្លៃ
+      let total = kwh * price;
+
+      document.getElementById("result").style.display = "block";
+
+      document.getElementById("usage").innerHTML =
+        kwh.toFixed(2) + " kWh";
+
+      document.getElementById("total").innerHTML =
+        total.toLocaleString() + " ៛";
+    }
+  </script>
+
+</body>
+</html>
